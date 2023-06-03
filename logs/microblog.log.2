@@ -1,0 +1,115 @@
+2023-05-31 17:39:48,169 ERROR: Exception on /user/me-too [GET] in [/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/flask/app.py:1414]
+Traceback (most recent call last):
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1968, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 920, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: user
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/flask/app.py", line 1482, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/flask/app.py", line 1974, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "/home/shtaket/dev/flask/microblog/app/routes.py", line 24, in before_request
+    if current_user.is_authenticated:
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/werkzeug/local.py", line 311, in __get__
+    obj = instance._get_current_object()
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/werkzeug/local.py", line 515, in _get_current_object
+    return get_name(local())  # type: ignore
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/flask_login/utils.py", line 25, in <lambda>
+    current_user = LocalProxy(lambda: _get_user())
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/flask_login/utils.py", line 372, in _get_user
+    current_app.login_manager._load_user()
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/flask_login/login_manager.py", line 364, in _load_user
+    user = self._user_callback(user_id)
+  File "/home/shtaket/dev/flask/microblog/app/models.py", line 79, in load_user
+    return User.query.get(int(id))
+  File "<string>", line 2, in get
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/sqlalchemy/util/deprecations.py", line 389, in warned
+    return fn(*args, **kwargs)  # type: ignore[no-any-return]
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 1130, in get
+    return self._get_impl(ident, loading.load_on_pk_identity)
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 1139, in _get_impl
+    return self.session._get_impl(
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 3675, in _get_impl
+    return db_load_fn(
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/sqlalchemy/orm/loading.py", line 668, in load_on_pk_identity
+    session.execute(
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2232, in execute
+    return self._execute_internal(
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2127, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1413, in execute
+    return meth(
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 483, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1637, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1987, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2344, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1968, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 920, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: user
+[SQL: SELECT user.id AS user_id, user.username AS user_username, user.email AS user_email, user.password_hash AS user_password_hash, user.about_me AS user_about_me, user.last_seen AS user_last_seen 
+FROM user 
+WHERE user.id = ?]
+[parameters: (2,)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2023-05-31 17:41:38,338 INFO: Microblog startup in [/home/shtaket/dev/flask/microblog/app/__init__.py:32]
+2023-05-31 17:41:47,605 INFO: Microblog startup in [/home/shtaket/dev/flask/microblog/app/__init__.py:32]
+2023-05-31 17:41:59,440 INFO: Microblog startup in [/home/shtaket/dev/flask/microblog/app/__init__.py:32]
+2023-05-31 23:58:05,930 INFO: Microblog startup in [/home/shtaket/dev/flask/microblog/app/__init__.py:32]
+2023-06-01 00:17:29,690 INFO: Microblog startup in [/home/shtaket/dev/flask/microblog/app/__init__.py:32]
+2023-06-01 00:19:28,616 INFO: Microblog startup in [/home/shtaket/dev/flask/microblog/app/__init__.py:32]
+2023-06-01 00:22:06,327 INFO: Microblog startup in [/home/shtaket/dev/flask/microblog/app/__init__.py:32]
+2023-06-01 00:26:37,808 INFO: Microblog startup in [/home/shtaket/dev/flask/microblog/app/__init__.py:32]
+2023-06-01 00:31:37,488 INFO: Microblog startup in [/home/shtaket/dev/flask/microblog/app/__init__.py:32]
+2023-06-01 00:35:17,167 INFO: Microblog startup in [/home/shtaket/dev/flask/microblog/app/__init__.py:32]
+2023-06-01 00:35:49,570 INFO: Microblog startup in [/home/shtaket/dev/flask/microblog/app/__init__.py:32]
+2023-06-01 00:36:40,982 INFO: Microblog startup in [/home/shtaket/dev/flask/microblog/app/__init__.py:32]
+2023-06-01 00:38:27,040 INFO: Microblog startup in [/home/shtaket/dev/flask/microblog/app/__init__.py:32]
+2023-06-01 00:40:09,978 INFO: Microblog startup in [/home/shtaket/dev/flask/microblog/app/__init__.py:32]
+2023-06-01 00:41:14,512 INFO: Microblog startup in [/home/shtaket/dev/flask/microblog/app/__init__.py:32]
+2023-06-01 00:41:42,864 INFO: Microblog startup in [/home/shtaket/dev/flask/microblog/app/__init__.py:32]
+2023-06-03 00:48:46,903 INFO: Microblog startup in [/home/shtaket/dev/flask/microblog/app/__init__.py:32]
+2023-06-03 00:48:51,734 ERROR: Exception on /explore [GET] in [/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/flask/app.py:1414]
+Traceback (most recent call last):
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/shtaket/dev/flask/microblog/app/routes.py", line 168, in explore
+    app.config['POSTS_PER_PAGE'],
+KeyError: 'POSTS_PER_PAGE'
+2023-06-03 00:48:52,912 ERROR: Exception on /explore [GET] in [/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/flask/app.py:1414]
+Traceback (most recent call last):
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/shtaket/dev/flask/microblog/venv/lib/python3.10/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/shtaket/dev/flask/microblog/app/routes.py", line 168, in explore
+    app.config['POSTS_PER_PAGE'],
+KeyError: 'POSTS_PER_PAGE'
