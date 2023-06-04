@@ -22,7 +22,8 @@ from app.forms import (
 	EditProfileForm,
 	PostForm,
 	ResetPasswordRequestForm,
-	ResetPasswordForm
+	ResetPasswordForm,
+	EmptyForm
 )
 from app.models import User, Post
 from app.email import send_password_reset_email
@@ -127,10 +128,12 @@ def user(username):
 		if posts.has_next else None
 	prev_url = url_for('user', page=posts.prev_num) \
 		if posts.has_prev else None
+	form = EmptyForm()
 	return render_template(
 		'user.html',
 		user=user,
 		posts=posts,
+		form=form,
 		next_url=next_url,
 		prev_url=prev_url)
 
@@ -151,36 +154,44 @@ def edit_profile():
 	return render_template('edit_profile.html', title='Редактирование профиля', form=form)
 
 
-@app.route('/follow/<username>')
+@app.route('/follow/<username>', methods=['POST'])
 @login_required
 def follow(username):
-	user = User.query.filter_by(username=username).first()
-	if user is None:
-		flash('Пользователь {} не найден.'.format(username))
-		return redirect(url_for('index'))
-	if user == current_user:
-		flash('Вы не можете подписаться на самого себя')
-		return redirect(url_for('user', username=username))
-	current_user.follow(user)
-	db.session.commit()
-	flash('Вы подписаны на {}!'.format(username))
-	return redirect(url_for('user', username=username))
+    form = EmptyForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=username).first()
+        if user is None:
+            flash('Пользователь {} не найден.'.format(username))
+            return redirect(url_for('index'))
+        if user == current_user:
+            flash('Вы не можете подписаться на самого себя!')
+            return redirect(url_for('user', username=username))
+        current_user.follow(user)
+        db.session.commit()
+        flash('Вы подписались на {}!'.format(username))
+        return redirect(url_for('user', username=username))
+    else:
+        return redirect(url_for('index'))
 
 
-@app.route('/unfollow/<username>')
+@app.route('/unfollow/<username>', methods=['POST'])
 @login_required
 def unfollow(username):
-	user = User.query.filter_by(username=username).first()
-	if user is None:
-		flash('Пользователь {} не найден.'.format(username))
-		redirect(url_for('index'))
-	if user == current_user:
-		flash('Вы не можете отписаться от самого себя!')
-		return redirect(url_for('user', username=username))
-	current_user.unfollow(user)
-	db.session.commit()
-	flash('Теперь вы отписаны от {}.'.format(username))
-	return redirect(url_for('user', username=username))
+    form = EmptyForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=username).first()
+        if user is None:
+            flash('Пользователь {} не найден.'.format(username))
+            return redirect(url_for('index'))
+        if user == current_user:
+            flash('Вы не можете отписаться от самого себя!')
+            return redirect(url_for('user', username=username))
+        current_user.unfollow(user)
+        db.session.commit()
+        flash('Вы отписались от {}.'.format(username))
+        return redirect(url_for('user', username=username))
+    else:
+        return redirect(url_for('index'))
 
 
 @app.route('/explore')

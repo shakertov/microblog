@@ -6,3 +6,4 @@ Flask-SQLAlchemy
 email_validator
 flask-mail
 pyjwt
+flask-bootstrap
