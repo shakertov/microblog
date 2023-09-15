@@ -5,6 +5,7 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_bootstrap import Bootstrap
+from flask_moment import Moment
 import logging
 from logging.handlers import RotatingFileHandler
 import os
@@ -27,6 +28,7 @@ login.login_message = 'Пожалуйста, войдите, чтобы откр
 
 # Инициализация bootstrap
 bootstrap = Bootstrap(app)
+moment = Moment(app)
 
 if not app.debug:
 	if not os.path.exists('logs'):
